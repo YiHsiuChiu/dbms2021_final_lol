@@ -14,11 +14,8 @@ struct TabBarView: View {
             //Jump to another page set
             //Q:希望可以改成登入後不用Navigation方式跳到這頁，不然上面會有bar
             HomeView().tabItem {
-                NavigationLink(destination: HomeView())
-                {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }.tag(1)
+                Image(systemName: "house.fill")
+                Text("Home")
             }
             PlayerListView().tabItem {
                 Image(systemName: "person")

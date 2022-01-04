@@ -32,12 +32,14 @@ struct ContentView: View {
 
     // Appearance
     var body: some View {
-        NavigationView {
-
+        if showinghomescreen {
+            TabBarView()
+        }
+        
+        else {
+            NavigationView {
             VStack{
                 ZStack {
-                    
-                    
                     VStack {
                         Spacer()
                         
@@ -64,13 +66,6 @@ struct ContentView: View {
                                     Text("登入").font(.title3).bold()
                                    }).padding(.all, 14.0).frame(width: 385.0, height: 50.0).background(Color(.systemGray3)).cornerRadius(12).keyboardType(.namePhonePad).foregroundColor(.white)
                             
-                            NavigationLink(
-                                destination: TabBarView(),
-                                isActive: $showinghomescreen) {
-                                
-                            }
-                            
-                            
                             Text("尚未建立帳戶嗎？").font(.title3).foregroundColor(.black).padding(.top)
                                 
                                 NavigationLink(
@@ -89,6 +84,8 @@ struct ContentView: View {
             }
             
         }
+        }
+        
     }
     
     // Username/Password check func

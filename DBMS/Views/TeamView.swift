@@ -11,33 +11,32 @@ struct TeamView: View {
     var team: TeamProfile
     
     var body: some View {
-        VStack {
-            Spacer()
-            CircleImageView(imageName: team.image, size: 200).padding()
-            Spacer()
-            Divider()
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("Team Name: ").font(.system(size: 20)).bold()
-                    Spacer()
-                    Spacer()
-                    Text(team.teamName).font(.callout).font(.system(size: 60)).bold()
-                }.padding()
+            VStack {
+                Spacer()
+                CircleImageView(imageName: team.image, size: 200).padding()
+                Spacer()
                 Divider()
-                NavigationView {
-                    List(playerData) {
-                        player in
-                        NavigationLink (
-                            destination: PlayerView(player: player)) {
-                            PlayerRowView(player: player)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Team Name: ").font(.system(size: 20)).bold()
+                        Spacer()
+                        Spacer()
+                        Text(team.teamName).font(.callout).font(.system(size: 60)).bold()
+                    }.padding()
+                    Divider()
+                    Text("Current Member: ").font(.system(size: 20)).bold().padding()
+                        List(playerData) {
+                            player in
+                            NavigationLink (
+                                destination: PlayerView(player: player)) {
+                                PlayerRowView(player: player)
+                            }
                         }
-                    }.navigationBarTitle(Text("Current Members"))
+                    //Team要撈同隊選手ㄉ資料
                 }
-                //Team要撈同隊選手ㄉ資料
+                Spacer()
+                Spacer()
             }
-            Spacer()
-            Spacer()
-        }
     }
 }
 

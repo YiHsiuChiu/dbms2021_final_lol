@@ -1,4 +1,12 @@
 
+# get started
+
+```npm install```
+ to install node modules
+
+```npm start```
+ to run server on localhost:8081
+
 # API
 
 ## get APIs
@@ -52,17 +60,11 @@
 
 ##### post body to login default admin user
 
-{
-	"username": "admin",
-	"password": "defaultpassword"
-}
+```{"username": "admin","password": "defaultpassword"}```
 
 ##### post body to login default end user
 
-{
-	"username": "user",
-	"password": "defaultpassword"
-}
+```{"username": "user","password": "defaultpassword"}```
 
 #### /admin
 
@@ -70,10 +72,7 @@
 
 ##### post body to login default admin
 
-{
-	"username": "admin",
-	"password": "defaultpassword"
-}
+```{"username": "admin","password": "defaultpassword"}```
 
 #### /user
 
@@ -82,10 +81,7 @@
 
 ##### example post body to create end user
 
-{
-	"username": "example",
-	"password": "defaultpassword"
-}
+```{"username": "example","password": "defaultpassword"}```
 
 ### game related
 
@@ -97,13 +93,7 @@
 
 ##### example post body to create game
 
-{
-	"start_time": "2021-02-17T12:00:00",
-	"fraction_of_final": "final",
-	"no": "1",
-	"team_red": "team_red",
-	"team_blue": "team_blue"
-}
+```{"start_time": "2021-02-17T12:00:00","fraction_of_final": "final","no": "1","team_red": "team_red","team_blue": "team_blue"}```
 
 ## put APIs
 
@@ -115,9 +105,4 @@
 
 ##### example post body to update game
 
-{
-	"start_time": "2021-02-17T12:00:00",
-	"end_time": "2021-02-17T13:00:00",
-	"winner": "the8",
-	"mvp": "mvp"
-}
+```{"start_time": "2021-02-17T12:00:00","end_time": "2021-02-17T13:00:00","winner": "the8","mvp": "mvp"}```

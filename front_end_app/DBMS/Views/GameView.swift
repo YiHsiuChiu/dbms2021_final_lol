@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GameView: View {
     var game: GameProfile
+    @State var progressValue: Float = 0.5
     var body: some View {
         VStack {
             HStack {
@@ -65,8 +66,11 @@ struct GameView: View {
                 Spacer()
                 Text(game.mvp).bold().font(.title3).padding()
             }
-            Text("這裡放 vote % 數條").bold().font(.title3).padding().background(Color.gray)
-            Spacer()
+            
+            VStack {
+                ProgressBar(value: $progressValue).frame(height: 20)
+                Spacer()
+            }.padding()
         }
     }
 }
@@ -74,5 +78,21 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(game: .demogame)
+    }
+}
+
+struct ProgressBar: View {
+    @Binding var value: Float
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
+                    .opacity(0.3)
+                    .foregroundColor(Color(UIColor.systemBlue))
+                Rectangle().frame(width: min(CGFloat(self.value)*geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .foregroundColor(Color(UIColor.systemRed))
+            }.cornerRadius(45.0)
+        }
     }
 }

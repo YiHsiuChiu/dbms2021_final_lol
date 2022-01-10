@@ -1,12 +1,15 @@
 class Player {
-    constructor(id, name, birthDate, role, teamName, joinDate, picture) {
-      this.id=id;
+    constructor(id, name, birthDate, role, teamName, joinDate,mvpNum, picture) {
+      this.playerid=id;
+      this.team=teamName;
       this.name=name;
+      this.birthDate = birthDate;
       this.role=role;
-      this.teamName=teamName;
       this.joinDate=joinDate;
-      this.picture=picture;
+      this.mvpNum = mvpNum;
+      this.image=picture;
     }
   }
 
   module.exports = Player
+

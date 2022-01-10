@@ -24,8 +24,8 @@ struct ContentView: View {
             }
     }
     
-    @State var account = ""
-    @State var password = ""
+    @State var account = "user"
+    @State var password = "defaultpassword"
     @State var wrongaccount = 0
     @State var wrongpassword = 0
     @State var showinghomescreen = false
@@ -90,17 +90,29 @@ struct ContentView: View {
     
     // Username/Password check func
     func authenticateUser(account: String, password: String) {
-        if account == "Test" {
-            wrongaccount = 0
-            if password == "Test" {
-                wrongpassword = 0
-                showinghomescreen = true
-            } else {
-                wrongpassword = 2
+        let address = "http://localhost:8081/login"
+        //POST
+        var request = URLRequest(url: URL(string: address)!)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        
+        let parameters = ["username": account, "password": password]
+        let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            } else if let response = response as? HTTPURLResponse,let data = data {
+                print(data)
+                print("Status code: \(response.statusCode)")
+                if response.statusCode == 200 {
+                    showinghomescreen = true
+                }
             }
-        } else {
-            wrongaccount = 2
-        }
+        }.resume()
+        
     }
 }
 

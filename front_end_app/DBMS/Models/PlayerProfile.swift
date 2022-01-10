@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-struct PlayerProfile: Identifiable,Codable, Hashable{
+struct PlayerProfile: Identifiable, Hashable, Decodable{
     let id = UUID()
     var playerid:String
     var team:String

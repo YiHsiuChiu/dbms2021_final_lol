@@ -10,47 +10,50 @@ import SwiftUI
 struct HomeView: View {
     var nextGame: GameProfile = getNextGame()
     var body: some View {
-        VStack {
-            Text("下一場比賽")
-                .font(.largeTitle)
-                .foregroundColor(.primary)
+        NavigationView {
             VStack {
-                HStack{
-                    VStack{
-                        Image("ig")
-                        // .resizable()
-                        // .aspectRatio(contentMode: .fit)
-                        Text(nextGame.teamRedName)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        Text(nextGame.teamRedRegion)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
-                    Text("VS")
-                        .font(.largeTitle)
-                        .foregroundColor(.primary)
-                    VStack{
-                        Image("facebook")
-                        // .resizable()
-                        // .aspectRatio(contentMode: .fit)
-                        Text(nextGame.teamBlueName)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        Text(nextGame.teamBlueRegion)
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
+                Text("下一場比賽")
+                    .font(.largeTitle)
+                    .foregroundColor(.primary)
+                NavigationLink {
+                    GameView(game: nextGame)
+                } label: {
+                    VStack {
+                        HStack{
+                            VStack{
+                                Image("ig")
+                                Text(nextGame.teamRedName)
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                                Text(nextGame.teamRedRegion)
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                            Text("VS")
+                                .font(.largeTitle)
+                                .foregroundColor(.primary)
+                            VStack{
+                                Image("facebook")
+                                Text(nextGame.teamBlueName)
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                                Text(nextGame.teamBlueRegion)
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        HStack {
+                            VStack{
+                                Text(timeFormat(time: nextGame.startTime))
+                                    .font(.headline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }.padding().background(Color(.systemGray3))
                 }
-                
-                HStack {
-                    VStack{
-                        Text(timeFormat(time: nextGame.startTime))
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                    }
-                }
-            }.padding().background(Color(.systemGray3))
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -62,7 +65,6 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 private func getNextGame() -> GameProfile {
-    // var result: GameProfile = gameData[0]
     for game in gameData {
         if game.endTime == "null" && game.winner == "null" && game.mvp == "null" {
             return game

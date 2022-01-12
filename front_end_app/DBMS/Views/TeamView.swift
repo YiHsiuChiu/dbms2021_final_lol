@@ -13,7 +13,7 @@ struct TeamView: View {
     var body: some View {
             VStack {
                 Spacer()
-                CircleImageView(imageName: team.image, size: 200).padding()
+                CircleImageView(image: base64toImage(imageBase64String: team.image), size: 200).padding()
                 Spacer()
                 Divider()
                 VStack(alignment: .leading) {
@@ -44,4 +44,12 @@ struct TeamView_Previews: PreviewProvider {
     static var previews: some View {
         TeamView(team: .demoteam)
     }
+}
+
+private func base64toImage(imageBase64String: String) -> UIImage? {
+    guard let imageData = Data(base64Encoded: imageBase64String, options: .ignoreUnknownCharacters) else {
+        return nil
+    }
+    
+    return UIImage(data: imageData)
 }

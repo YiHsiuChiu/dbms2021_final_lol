@@ -54,10 +54,10 @@ struct GameView: View {
             }
             HStack {
                 Text("Start Time:").bold().font(.title3).padding([.top, .leading])
-                Text(game.startTime).bold().font(.title3).padding(.top)
+                Text(timeFormat(time: game.startTime)).bold().font(.title3).padding(.top)
                 Spacer()
                 Text("End Time:").bold().font(.title3).padding(.top)
-                Text(game.endTime).bold().font(.title3).padding([.top, .trailing])
+                Text(timeFormat(time: game.endTime)).bold().font(.title3).padding([.top, .trailing])
             }
             Divider()
             HStack {
@@ -101,4 +101,8 @@ struct ProgressBar: View {
             }.cornerRadius(45.0)
         }
     }
+}
+
+private func timeFormat(time: String) -> String{
+    return time.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
 }

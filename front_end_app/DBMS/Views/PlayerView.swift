@@ -13,7 +13,7 @@ struct PlayerView: View {
     var body: some View {
         VStack {
             Spacer()
-            CircleImageView(imageName: player.image, size: 200).padding()
+            CircleImageView(image: base64toImage(imageBase64String: player.image), size: 200).padding()
             Spacer()
             Divider()
             VStack(alignment: .leading) {
@@ -62,4 +62,12 @@ struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         PlayerView(player: .demoplayer)
     }
+}
+
+private func base64toImage(imageBase64String: String) -> UIImage? {
+    guard let imageData = Data(base64Encoded: imageBase64String, options: .ignoreUnknownCharacters) else {
+        return nil
+    }
+    
+    return UIImage(data: imageData)
 }

@@ -22,15 +22,6 @@ struct PlayerListView: View {
                 }.searchable(text: $searchText)
         }
     }
-    
-    struct PlayerList: Decodable {
-        var playerid:String
-        var team:String
-        var name:String
-        var role:String
-        var mvpNum:String
-        var image:String
-    }
 }
 
 

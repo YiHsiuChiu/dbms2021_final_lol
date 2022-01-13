@@ -9,7 +9,8 @@ import SwiftUI
 
 struct GameView: View {
     var game: GameProfile
-    @State var progressValue: Float = 0.5
+    
+//    @State var progressValue: Float = 0.5
     var body: some View {
         VStack {
             HStack {
@@ -26,11 +27,13 @@ struct GameView: View {
                     VStack {
                         Text(game.teamRedName).bold().font(.title3).padding()
                         Text(game.teamRedRegion).bold().font(.title3).padding()
-                        Button(action: {
-                            print("Voted!")
-                        }) {
-                            Text("Vote me !").padding()
-                        }.background(Color.white).cornerRadius(25)
+                        if(game.endTime=="null"){
+                            Button(action: {
+                                print("Voted!")
+                            }) {
+                                Text("Vote me !").padding()
+                            }.background(Color.white).cornerRadius(25)
+                        }
                     }
                 }
                 ZStack {
@@ -38,11 +41,13 @@ struct GameView: View {
                     VStack {
                         Text(game.teamBlueName).bold().font(.title3).padding()
                         Text(game.teamBlueRegion).bold().font(.title3).padding()
-                        Button(action: {
-                            print("Voted!")
-                        }) {
-                            Text("Vote me !").padding()
-                        }.background(Color.white).cornerRadius(25)
+                        if(game.endTime=="null"){
+                            Button(action: {
+                                print("Voted!")
+                            }) {
+                                Text("Vote me !").padding()
+                            }.background(Color.white).cornerRadius(25)
+                        }
                     }
                 }
                 Spacer()
@@ -68,7 +73,8 @@ struct GameView: View {
             }
             
             VStack {
-                ProgressBar(value: $progressValue).frame(height: 20)
+                let result = Float(game.nOfRedVote)/(Float(game.nOfBlueVote)+Float(game.nOfRedVote))
+                ProgressBar(value: result).frame(height: 20)
                 Spacer()
             }.padding()
         }
@@ -82,7 +88,7 @@ struct GameView_Previews: PreviewProvider {
 }
 
 struct ProgressBar: View {
-    @Binding var value: Float
+    var value: Float
     
     var body: some View {
         GeometryReader { geometry in

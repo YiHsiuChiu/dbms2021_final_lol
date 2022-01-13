@@ -1,11 +1,13 @@
 class Player {
-    constructor(id, name, birthDate, role, teamName, joinDate, picture) {
-      this.id=id;
+    constructor(playerid, name, birthDate, role, team, joinDate, mvpNum, image) {
+      this.playerid=playerid;
       this.name=name;
+      this.birthDate=birthDate;
       this.role=role;
-      this.teamName=teamName;
+      this.team=team;
       this.joinDate=joinDate;
-      this.picture=picture;
+      this.mvpNum=mvpNum;
+      this.image=image;
     }
   }
 

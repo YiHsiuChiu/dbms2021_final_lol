@@ -7,9 +7,9 @@
 
 import SwiftUI
 
+var userAccount = ""
 
 struct ContentView: View {
-    
     // TextField Style setting
     public struct CustomTextFieldStyle : TextFieldStyle {
             public func _body(configuration: TextField<Self._Label>) -> some View {
@@ -90,7 +90,7 @@ struct ContentView: View {
     
     // Username/Password check func
     func authenticateUser(account: String, password: String) {
-        let address = "http://localhost:8081/login"
+        let address = "http://140.119.163.196:8081/login"
         //POST
         var request = URLRequest(url: URL(string: address)!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -108,6 +108,7 @@ struct ContentView: View {
                 print(data)
                 print("Status code: \(response.statusCode)")
                 if response.statusCode == 200 {
+                    userAccount = account
                     showinghomescreen = true
                 }
             }
@@ -121,3 +122,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+

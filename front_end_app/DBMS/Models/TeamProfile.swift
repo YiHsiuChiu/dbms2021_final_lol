@@ -11,12 +11,13 @@ import Foundation
 struct TeamProfile: Identifiable,Codable, Hashable{
     let id = UUID()
     var teamName:String
+    var regionName:String
     var image:String
 }
 
 extension TeamProfile {
     static var demoteam: TeamProfile {
-        TeamProfile(teamName: "GoGoGo", image: "TestImage")
+        TeamProfile(teamName: "GoGoGo",regionName: "LCK", image: "TestImage")
     }
 }
 

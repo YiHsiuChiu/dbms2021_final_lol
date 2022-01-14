@@ -25,9 +25,9 @@ struct HomeView: View {
                                 Text(nextGame.teamRedName)
                                     .font(.headline)
                                     .foregroundColor(.secondary)
-                                Text(nextGame.teamRedRegion)
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
+//                                Text(nextGame.teamRedRegion)
+//                                    .font(.headline)
+//                                    .foregroundColor(.secondary)
                             }
                             Text("VS")
                                 .font(.largeTitle)
@@ -37,9 +37,9 @@ struct HomeView: View {
                                 Text(nextGame.teamBlueName)
                                     .font(.headline)
                                     .foregroundColor(.secondary)
-                                Text(nextGame.teamBlueRegion)
-                                    .font(.headline)
-                                    .foregroundColor(.secondary)
+//                                Text(nextGame.teamBlueRegion)
+//                                    .font(.headline)
+//                                    .foregroundColor(.secondary)
                             }
                         }
                         HStack {

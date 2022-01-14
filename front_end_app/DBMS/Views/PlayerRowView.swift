@@ -12,7 +12,7 @@ struct PlayerRowView: View {
     var body: some View {
         HStack {
             CircleImageView(image: base64toImage(imageBase64String: player.image), size: 80).padding()
-            Text(player.name).bold().font(.callout).font(.system(size: 60))
+            Text(player.playerid).bold().font(.callout).font(.system(size: 60))
             Spacer()
         }.frame(height: 100)
     }

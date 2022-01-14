@@ -8,14 +8,25 @@
 import UIKit
 import SwiftUI
 
-var playerData: [PlayerProfile] = getPlayerList()
-var teamData: [TeamProfile] = getTeamList()
+var playerData: [PlayerProfile] = load("Players.json")
+var teamData: [TeamProfile] = load("Teams.json")
+//var gameData: [GameProfile] = load("Games.json")
+
+var mutexServer = false;
+
+//var gameData: [GameProfile] = []
 var gameData: [GameProfile] = getGameList()
+//var playerData: [PlayerProfile] = getPlayerList()
+//var playerData: [PlayerProfile] = []
+//var teamData: [TeamProfile] = getTeamList()
+//var teamData: [TeamProfile] = []
+
+
 
 private func getPlayerList() -> [PlayerProfile] {
     var mutex = false
     var DataList : [PlayerProfile]=[];
-    let address = "http://localhost:8081/player/name/aaa"
+    let address = "http://140.119.163.196:8081/player"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -45,7 +56,7 @@ private func getPlayerList() -> [PlayerProfile] {
 private func getTeamList() -> [TeamProfile] {
     var mutex = false
     var DataList : [TeamProfile]=[];
-    let address = "http://localhost:8081/team/teamname/aaa"
+    let address = "http://140.119.163.196:8081/team"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -75,7 +86,7 @@ private func getTeamList() -> [TeamProfile] {
 private func getGameList() -> [GameProfile] {
     var mutex = false
     var DataList : [GameProfile]=[];
-    let address = "http://localhost:8081/game/starttime/0"
+    let address = "http://140.119.163.196:8081/game"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -97,7 +108,6 @@ private func getGameList() -> [GameProfile] {
     } else {
         print("Invalid URL.")
     }
-//    print("test")
     while(!mutex){}
     return DataList
 }

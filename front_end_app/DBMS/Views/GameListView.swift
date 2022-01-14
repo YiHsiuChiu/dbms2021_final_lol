@@ -19,36 +19,9 @@ struct GameListView: View {
                         GameRowView(game: game)
                         }
                     }.navigationBarTitle(Text("Game List"))
-            }.searchable(text: $searchText).onAppear(perform: refresh )
+            }.searchable(text: $searchText)
         }
     }
-}
-
-func refresh(){
-    var mutex = false
-    let address = "http://localhost:8081/game/starttime/0"
-    if let url = URL(string: address) {
-        // GET
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error.localizedDescription)")
-            } else if let response = response as? HTTPURLResponse,let data = data {
-                print(data)
-                print("Status code: \(response.statusCode)")
-                do {
-                    gameData = try JSONDecoder().decode([GameProfile].self, from: data)
-                    print("success")
-                    mutex = true
-                } catch {
-                    fatalError("Error: \(error.localizedDescription)")
-                }
-            }
-        }.resume()
-    } else {
-        print("Invalid URL.")
-    }
-//    print("test")
-    while(!mutex){}
 }
 
 struct GameListView_Previews: PreviewProvider {

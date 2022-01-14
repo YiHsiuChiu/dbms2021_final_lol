@@ -14,9 +14,9 @@ struct GameView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Fraction Of Final").bold().padding([.leading, .bottom, .trailing]).font(.title)
+                Text(game.fractionOfFinal).bold().padding([.leading, .bottom, .trailing]).font(.title)
                 Text("No.").bold().font(.title).padding([.leading, .bottom])
-                Text(game.fractionOfFinal).bold().font(.title).padding(.bottom)
+                Text(String(game.no)).bold().font(.title).padding(.bottom)
                 Spacer()
             }
             Divider()
@@ -26,10 +26,10 @@ struct GameView: View {
                     Color.pink
                     VStack {
                         Text(game.teamRedName).bold().font(.title3).padding()
-                        Text(game.teamRedRegion).bold().font(.title3).padding()
-                        if(game.endTime=="null"){
+//                        Text(game.teamRedRegion).bold().font(.title3).padding()
+                        if(game.endTime==nil){
                             Button(action: {
-                                print("Voted!")
+                                userVote(time: game.startTime,account: userAccount ,winner: game.teamRedName)
                             }) {
                                 Text("Vote me !").padding()
                             }.background(Color.white).cornerRadius(25)
@@ -40,10 +40,10 @@ struct GameView: View {
                     Color.blue
                     VStack {
                         Text(game.teamBlueName).bold().font(.title3).padding()
-                        Text(game.teamBlueRegion).bold().font(.title3).padding()
-                        if(game.endTime=="null"){
+//                        Text(game.teamBlueRegion).bold().font(.title3).padding()
+                        if(game.endTime==nil){
                             Button(action: {
-                                print("Voted!")
+                                userVote(time: game.startTime,account: userAccount ,winner: game.teamBlueName)
                             }) {
                                 Text("Vote me !").padding()
                             }.background(Color.white).cornerRadius(25)
@@ -57,23 +57,25 @@ struct GameView: View {
                 Text(timeFormat(time: game.startTime)).bold().font(.title3).padding(.top)
                 Spacer()
                 Text("End Time:").bold().font(.title3).padding(.top)
-                Text(timeFormat(time: game.endTime)).bold().font(.title3).padding([.top, .trailing])
+                Text(timeFormat(time: game.endTime ?? "")).bold().font(.title3).padding([.top, .trailing])
             }
             Divider()
             HStack {
                 Text("Winner").bold().font(.title3).padding()
                 Spacer()
-                Text(game.winner).bold().font(.title3).padding()
+                Text(game.winner ?? "").bold().font(.title3).padding()
             }
             Divider()
             HStack {
                 Text("Mvp").bold().font(.title3).padding()
                 Spacer()
-                Text(game.mvp).bold().font(.title3).padding()
+                Text(game.mvp ?? "").bold().font(.title3).padding()
             }
             
             VStack {
-                let result = Float(game.nOfRedVote)/(Float(game.nOfBlueVote)+Float(game.nOfRedVote))
+                let red = Int(game.nOfRedVote) ?? 0
+                let blue = Int(game.nOfBlueVote) ?? 0
+                let result = Float(red) / (Float(red) + Float(blue))
                 ProgressBar(value: result).frame(height: 20)
                 Spacer()
             }.padding()
@@ -85,6 +87,33 @@ struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(game: .demogame)
     }
+}
+
+func userVote(time: String, account: String, winner: String) {
+    let address = "http://140.119.163.196:8081/vote"
+    //POST
+    var request = URLRequest(url: URL(string: address)!)
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpMethod = "POST"
+    
+    let parameters = ["startTime": time, "username": account, "winner": winner]
+    print(parameters)
+    let jsonData = try? JSONSerialization.data(withJSONObject: parameters)
+
+    request.httpBody = jsonData
+    
+    URLSession.shared.dataTask(with: request) { (data, response, error) in
+        if let error = error {
+            print("Error: \(error.localizedDescription)")
+        } else if let response = response as? HTTPURLResponse,let data = data {
+            print(data)
+            print("Status code: \(response.statusCode)")
+            if response.statusCode == 200 {
+                print("Voted!")
+            }
+        }
+    }.resume()
+    
 }
 
 struct ProgressBar: View {

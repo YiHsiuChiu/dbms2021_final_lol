@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TeamView: View {
     var team: TeamProfile
-    
     var body: some View {
             VStack {
                 Spacer()
@@ -24,8 +23,16 @@ struct TeamView: View {
                         Text(team.teamName).font(.callout).font(.system(size: 60)).bold()
                     }.padding()
                     Divider()
+                    HStack {
+                        Text("Region: ").font(.system(size: 20)).bold()
+                        Spacer()
+                        Spacer()
+                        Text(team.regionName).font(.callout).font(.system(size: 60)).bold()
+                    }.padding()
+                    Divider()
+                    var teamPlayer: [PlayerProfile] = getPlayerList(name: team.teamName)
                     Text("Current Member: ").font(.system(size: 20)).bold().padding()
-                        List(playerData) {
+                        List(teamPlayer) {
                             player in
                             NavigationLink (
                                 destination: PlayerView(player: player)) {
@@ -45,6 +52,37 @@ struct TeamView_Previews: PreviewProvider {
         TeamView(team: .demoteam)
     }
 }
+
+private func getPlayerList(name: String) -> [PlayerProfile] {
+    var mutex = false
+    var DataList : [PlayerProfile]=[];
+    let address = "http://140.119.163.196:8081/player/teamname/\(name)"
+    if let url = URL(string: address) {
+        // GET
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+            } else if let response = response as? HTTPURLResponse,let data = data {
+                print(data)
+                print("Status code: \(response.statusCode)")
+                do {
+                    DataList = try JSONDecoder().decode([PlayerProfile].self, from: data)
+                    print("success")
+                    print("this is ",DataList)
+                    mutex = true
+                } catch {
+                    fatalError("Error: \(error.localizedDescription)")
+                }
+            }
+        }.resume()
+    } else {
+        print("Invalid URL.")
+    }
+//    print("test")
+    while(!mutex){}
+    return DataList
+}
+
 
 private func base64toImage(imageBase64String: String) -> UIImage? {
     guard let imageData = Data(base64Encoded: imageBase64String, options: .ignoreUnknownCharacters) else {

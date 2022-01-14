@@ -12,8 +12,9 @@ struct GameRowView: View {
     var body: some View {
         HStack(alignment: .center) {
             HStack {
-            Text(" NO.").bold().font(.callout).font(.system(size: 60))
             Text(game.fractionOfFinal).bold().font(.callout).font(.system(size: 60))
+            Text(" NO.").bold().font(.callout).font(.system(size: 60))
+            Text(String(game.no)).bold().font(.callout).font(.system(size: 60))
             }.padding()
             Spacer()
         

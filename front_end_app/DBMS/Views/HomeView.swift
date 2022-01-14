@@ -74,6 +74,24 @@ private func getNextGame() -> GameProfile {
     return gameData[0]
 }
 
-private func timeFormat(time: String) -> String{
-    return time.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]    
+func timeFormat(time: String) -> String{
+    let format_time: String = time.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
+    
+    let sep_dash: [String] = format_time.components(separatedBy: " ")[0].components(separatedBy: "-")
+    let year: String = sep_dash[0]
+    let month: String = sep_dash[1]
+    var day: String = sep_dash[2]
+    let sep_colon: [String] = format_time.components(separatedBy: " ")[1].components(separatedBy: ":")
+    var hours: String = sep_colon[0]
+    let min: String = sep_colon[1]
+    
+    if 8 + (Int(hours) ?? 0)! >= 24 {
+        hours = String(8 + (Int(hours) ?? 0)! - 24)
+        day = String((Int(day) ?? 0)! + 1)
+    } else {
+        hours = String((Int(hours) ?? 0)! + 8)
+    }
+    let ret: String = year + "-" + month + "-" + day + " " + hours + ":" + min
+
+    return ret
 }

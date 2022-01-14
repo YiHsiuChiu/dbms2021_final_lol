@@ -131,7 +131,3 @@ struct ProgressBar: View {
         }
     }
 }
-
-private func timeFormat(time: String) -> String{
-    return time.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
-}

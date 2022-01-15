@@ -8,22 +8,22 @@
 import UIKit
 import SwiftUI
 
-var playerData: [PlayerProfile] = load("Players.json")
-var teamData: [TeamProfile] = load("Teams.json")
+//var playerData: [PlayerProfile] = load("Players.json")
+// var teamData: [TeamProfile] = load("Teams.json")
 //var gameData: [GameProfile] = load("Games.json")
 
 var mutexServer = false;
 
-//var gameData: [GameProfile] = []
-var gameData: [GameProfile] = getGameList()
+var gameData: [GameProfile] = []
+//var gameData: [GameProfile] = getGameList()
 //var playerData: [PlayerProfile] = getPlayerList()
-//var playerData: [PlayerProfile] = []
+var playerData: [PlayerProfile] = []
 //var teamData: [TeamProfile] = getTeamList()
-//var teamData: [TeamProfile] = []
+var teamData: [TeamProfile] = []
 
 
 
-private func getPlayerList() -> [PlayerProfile] {
+func getPlayerList() -> [PlayerProfile] {
     var mutex = false
     var DataList : [PlayerProfile]=[];
     let address = "http://140.119.163.196:8081/player"
@@ -33,12 +33,12 @@ private func getPlayerList() -> [PlayerProfile] {
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else if let response = response as? HTTPURLResponse,let data = data {
-                print(data)
+                // print(data)
                 print("Status code: \(response.statusCode)")
                 do {
                     DataList = try JSONDecoder().decode([PlayerProfile].self, from: data)
                     print("success")
-                    print("this is ",DataList)
+                    // print("this is ",DataList)
                     mutex = true
                 } catch {
                     fatalError("Error: \(error.localizedDescription)")
@@ -53,7 +53,7 @@ private func getPlayerList() -> [PlayerProfile] {
     return DataList
 }
 
-private func getTeamList() -> [TeamProfile] {
+func getTeamList() -> [TeamProfile] {
     var mutex = false
     var DataList : [TeamProfile]=[];
     let address = "http://140.119.163.196:8081/team"
@@ -63,12 +63,12 @@ private func getTeamList() -> [TeamProfile] {
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else if let response = response as? HTTPURLResponse,let data = data {
-                print(data)
+                // print(data)
                 print("Status code: \(response.statusCode)")
                 do {
                     DataList = try JSONDecoder().decode([TeamProfile].self, from: data)
                     print("success")
-                    print("this is ",DataList)
+                    // print("this is ",DataList)
                     mutex = true
                 } catch {
                     fatalError("Error: \(error.localizedDescription)")
@@ -83,7 +83,7 @@ private func getTeamList() -> [TeamProfile] {
     return DataList
 }
 
-private func getGameList() -> [GameProfile] {
+func getGameList() -> [GameProfile] {
     var mutex = false
     var DataList : [GameProfile]=[];
     let address = "http://140.119.163.196:8081/game"
@@ -93,12 +93,12 @@ private func getGameList() -> [GameProfile] {
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else if let response = response as? HTTPURLResponse,let data = data {
-                print(data)
+                // print(data)
                 print("Status code: \(response.statusCode)")
                 do {
                     DataList = try JSONDecoder().decode([GameProfile].self, from: data)
                     print("success")
-                    print("this is ",DataList)
+                    // print("this is ",DataList)
                     mutex = true
                 } catch {
                     fatalError("Error: \(error.localizedDescription)")

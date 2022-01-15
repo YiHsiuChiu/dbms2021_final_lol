@@ -9,7 +9,9 @@ import SwiftUI
 
 struct PlayerListView: View {
     @State private var searchText = ""
-    
+    init() {
+        playerData = getPlayerList()
+    }
     var body: some View {
         if #available(iOS 15.0, *) {
             NavigationView {

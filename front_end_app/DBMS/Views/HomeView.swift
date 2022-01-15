@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    var nextGame: GameProfile = getNextGame()
+    var nextGame: GameProfile 
+    init() {
+        gameData = getGameList()
+        nextGame = getNextGame()
+    }
     var body: some View {
         NavigationView {
             VStack {

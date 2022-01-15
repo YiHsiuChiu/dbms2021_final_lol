@@ -9,6 +9,9 @@ import SwiftUI
 
 struct TeamListView: View {
     @State private var searchText = ""
+    init() {
+        teamData = getTeamList()
+    }
     var body: some View {
         if #available(iOS 15.0, *) {
         NavigationView {
@@ -19,8 +22,9 @@ struct TeamListView: View {
                     TeamRowView(team: team)
                     }
                 }.navigationBarTitle(Text("Team List"))
-            }.searchable(text: $searchText)
-    }
+            }
+            .searchable(text: $searchText)
+        }
     }
 }
 

@@ -15,40 +15,51 @@ struct GameView: View {
         VStack {
             HStack {
                 Text(game.fractionOfFinal).bold().padding([.leading, .bottom, .trailing]).font(.title)
-                Text("No.").bold().font(.title).padding([.leading, .bottom])
+                Text("No.").bold().font(.title).padding([.leading, .bottom, .trailing]).frame(maxWidth: .infinity, alignment: .trailing)
                 Text(String(game.no)).bold().font(.title).padding(.bottom)
                 Spacer()
             }
             Divider()
             HStack {
                 Spacer()
-                ZStack {
-                    Color.pink
-                    VStack {
-                        Text(game.teamRedName).bold().font(.title3).padding()
-//                        Text(game.teamRedRegion).bold().font(.title3).padding()
-                        if(game.endTime==nil){
-                            Button(action: {
-                                userVote(time: game.startTime,account: userAccount ,winner: game.teamRedName)
-                            }) {
-                                Text("Vote me !").padding()
-                            }.background(Color.white).cornerRadius(25)
+                NavigationLink {
+                    TeamView(team: getTeam(teamName: game.teamRedName))
+                } label: {
+                    ZStack {
+                        Color.pink
+                        VStack {
+                            Text(game.teamRedName).bold().font(.title3).padding().foregroundColor(Color.black)
+    //                        Text(game.teamRedRegion).bold().font(.title3).padding()
+                            if(game.endTime==nil){
+                                Button(action: {
+                                    userVote(time: game.startTime,account: userAccount ,winner: game.teamRedName)
+                                }) {
+                                    Text("Vote me !").padding()
+                                }.background(Color.white).cornerRadius(25)
+                            }
                         }
                     }
+                    .cornerRadius(15)
                 }
-                ZStack {
-                    Color.blue
-                    VStack {
-                        Text(game.teamBlueName).bold().font(.title3).padding()
-//                        Text(game.teamBlueRegion).bold().font(.title3).padding()
-                        if(game.endTime==nil){
-                            Button(action: {
-                                userVote(time: game.startTime,account: userAccount ,winner: game.teamBlueName)
-                            }) {
-                                Text("Vote me !").padding()
-                            }.background(Color.white).cornerRadius(25)
+                NavigationLink {
+                    TeamView(team: getTeam(teamName: game.teamBlueName))
+                } label: {
+                    ZStack {
+                        Color.blue
+                        VStack {
+                            Text(game.teamBlueName).bold().font(.title3).padding().foregroundColor(Color.black)
+    //                        Text(game.teamBlueRegion).bold().font(.title3).padding()
+                            if(game.endTime==nil){
+                                Button(action: {
+                                    userVote(time: game.startTime,account: userAccount ,winner: game.teamBlueName)
+                                }) {
+                                    Text("Vote me !").padding()
+                                }.background(Color.white).cornerRadius(25)
+                            }
                         }
+                        
                     }
+                    .cornerRadius(15)
                 }
                 Spacer()
             }

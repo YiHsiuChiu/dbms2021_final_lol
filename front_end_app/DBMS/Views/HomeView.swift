@@ -12,34 +12,36 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("下一場比賽")
-                    .font(.largeTitle)
-                    .foregroundColor(.primary)
+                // Text("下一場比賽")
+                //     .font(.largeTitle)
+                //     .foregroundColor(.primary)
                 NavigationLink {
                     GameView(game: nextGame)
                 } label: {
                     VStack {
                         HStack{
                             VStack{
-                                Image("ig")
+                                // Image("ig")
+                                CircleImageView(image: base64toImage(imageBase64String: getTeam(teamName: nextGame.teamRedName).image), size: 140).padding()
                                 Text(nextGame.teamRedName)
                                     .font(.headline)
-                                    .foregroundColor(.secondary)
-//                                Text(nextGame.teamRedRegion)
-//                                    .font(.headline)
-//                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.primary)
+                                // Text(nextGame.teamRedRegion)
+                                //     .font(.headline)
+                                //     .foregroundColor(.secondary)
                             }
                             Text("VS")
-                                .font(.largeTitle)
-                                .foregroundColor(.primary)
+                                // .font(.largeTitle)
+                                .foregroundColor(.secondary)
                             VStack{
-                                Image("facebook")
+                                // Image("facebook")
+                                CircleImageView(image: base64toImage(imageBase64String: getTeam(teamName: nextGame.teamBlueName).image), size: 140).padding()
                                 Text(nextGame.teamBlueName)
                                     .font(.headline)
-                                    .foregroundColor(.secondary)
-//                                Text(nextGame.teamBlueRegion)
-//                                    .font(.headline)
-//                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.primary)
+                                // Text(nextGame.teamBlueRegion)
+                                //     .font(.headline)
+                                //     .foregroundColor(.secondary)
                             }
                         }
                         HStack {
@@ -49,11 +51,14 @@ struct HomeView: View {
                                     .foregroundColor(.secondary)
                             }
                         }
-                    }.padding().background(Color(.systemGray3))
+                    }
+                    .padding()
+                    .background(Color(.systemGray5))
+                    .cornerRadius(15)
                 }
             }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitle("下一場比賽")
+            // .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -97,4 +102,40 @@ func timeFormat(time: String) -> String{
     let ret: String = year + "-" + month + "-" + day + " " + hours + ":" + min
 
     return ret
+}
+
+func getTeam(teamName: String) -> TeamProfile{
+    for team in teamData {
+        if team.teamName == teamName {
+            return team
+        }
+    }
+    return TeamProfile(teamName: "error",regionName: "error", image: "")
+//     var mutex = false
+//     var team : TeamProfile = TeamProfile(teamName: "GoGoGo",regionName: "LCK", image: "TestImage")
+//     let address = "http://140.119.163.196:8081/team/" + teamName
+//     print(address)
+//     if let url = URL(string: address) {
+//         // GET
+//         URLSession.shared.dataTask(with: url) { (data, response, error) in
+//             if let error = error {
+//                 print("Error: \(error.localizedDescription)")
+//             } else if let response = response as? HTTPURLResponse,let data = data {
+//                 print(data)
+//                 print("Status code: \(response.statusCode)")
+//                 do {
+//                     team = try JSONDecoder().decode(TeamProfile.self, from: data)
+//                     print("success")
+//                     print("this is ", team)
+//                     mutex = true
+//                 } catch {
+//                     fatalError("Error: \(error.localizedDescription)")
+//                 }
+//             }
+//         }.resume()
+//     } else {
+//         print("Invalid URL.")
+//     }
+//     while(!mutex){}
+//     return team
 }

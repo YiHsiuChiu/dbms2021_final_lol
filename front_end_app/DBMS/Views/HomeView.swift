@@ -75,6 +75,9 @@ private func getNextGame() -> GameProfile {
 }
 
 func timeFormat(time: String) -> String{
+    if time == "null" || time == "" {
+        return "null"
+    }
     let format_time: String = time.replacingOccurrences(of: "T", with: " ").components(separatedBy: ".")[0]
     
     let sep_dash: [String] = format_time.components(separatedBy: " ")[0].components(separatedBy: "-")

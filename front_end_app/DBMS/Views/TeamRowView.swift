@@ -24,10 +24,10 @@ struct TeamRowView_Previews: PreviewProvider {
     }
 }
 
-private func base64toImage(imageBase64String: String) -> UIImage? {
-    guard let imageData = Data(base64Encoded: imageBase64String, options: .ignoreUnknownCharacters) else {
-        return nil
-    }
+// private func base64toImage(imageBase64String: String) -> UIImage? {
+//     guard let imageData = Data(base64Encoded: imageBase64String, options: .ignoreUnknownCharacters) else {
+//         return nil
+//     }
     
-    return UIImage(data: imageData)
-}
+//     return UIImage(data: imageData)
+// }

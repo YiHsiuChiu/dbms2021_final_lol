@@ -10,17 +10,21 @@ client.connect(err => {
 });
 
 async function getPlayers(){
+    // console.log('getPlayers')
     const query = 'Select player.*, sum(case when player.id=game.mvp then 1 else 0 end) as mvp_times From player, game Group BY player.id;';
     let players = [];
     const res = await client.query(query);
+    // console.log('playerSQL get')
     const rows = res.rows;
     rows.map(row => {
             players.push(new Player(row['id'], row['name'], row['birth_date'], row['role'], row['team_name'], row['join_date'], row['mvp_times'], row['picture']));
     });
+    // console.log('player return')
     return players;
 }
 
 async function getPlayersByTeam(team){
+    // console.log(team)
     const query = `Select player.*, sum(case when player.id=game.mvp then 1 else 0 end) as mvp_times From player, game Where player.team_name='${team}' Group BY player.id;`;
     let players = [];
     const res = await client.query(query);
@@ -32,24 +36,44 @@ async function getPlayersByTeam(team){
 }
 
 async function getTeams(){
+    // console.log('getTeams')
     const query = 'SELECT * FROM team;';
     let teams = [];
     const res = await client.query(query);
+    // console.log('teamSQL get')
     const rows = res.rows;
     rows.map(row => {
         teams.push(new Team(row['name'], row['city'], row['owner'], row['create_date'], row['region_name'], row['picture']));
     });
+    // console.log('team return')
     return teams;
 }
 
 async function getGames(){
-    const query = 'Select game.*, sum(case when game.Team_Red=vote.winner then 1 else 0 end) as red_vote, sum(case when game.Team_Blue=vote.winner then 1 else 0 end) as blue_vote From game, vote WHERE game.Start_time=vote.Game_start_time Group BY game.Start_time;';
+    // console.log('getGames')
+    const query = 'SELECT GAME.*, SUM(CASE WHEN (GAME.START_TIME = VOTE.GAME_START_TIME) AND (GAME.TEAM_RED = VOTE.WINNER) THEN 1 ELSE 0 END) AS RED_VOTE, SUM(CASE WHEN (GAME.START_TIME = VOTE.GAME_START_TIME) AND (GAME.TEAM_BLUE = VOTE.WINNER) THEN 1 ELSE 0 END) AS BLUE_VOTE FROM GAME, VOTE GROUP BY GAME.START_TIME;';
     let games = [];
     const res = await client.query(query);
+    // console.log('gameSQL get')
     const rows = res.rows;
     rows.map(row => {
         games.push(new Game(row['start_time'], row['end_time'], row['fraction_of_final'], row['no'], row['winner'], row['team_red'],  row['team_blue'], row['mvp'], row['red_vote'], row['blue_vote']));
     });
+    // console.log('game return')
+    return games;
+}
+
+async function getVotesByGame(info){
+    // console.log('getGames')
+    const query =  `SELECT GAME.*,SUM(CASE WHEN (GAME.START_TIME = VOTE.GAME_START_TIME) AND (GAME.TEAM_RED = VOTE.WINNER) THEN 1 ELSE 0 END) AS RED_VOTE, SUM(CASE WHEN (GAME.START_TIME = VOTE.GAME_START_TIME) AND (GAME.TEAM_BLUE = VOTE.WINNER) THEN 1 ELSE 0 END) AS BLUE_VOTE FROM GAME, VOTE Where GAME.START_TIME = '${info.startTime}' GROUP BY GAME.START_TIME; `;
+    let games = [];
+    const res = await client.query(query);
+    // console.log('gameSQL get')
+    const rows = res.rows;
+    rows.map(row => {
+        games.push(new Game(row['start_time'], row['end_time'], row['fraction_of_final'], row['no'], row['winner'], row['team_red'],  row['team_blue'], row['mvp'], row['red_vote'], row['blue_vote']));
+    });
+    // console.log('game return')
     return games;
 }
 
@@ -67,7 +91,7 @@ async function isEndUser(info){
 }
 
 async function isAdmin(info){
-    const query =  `SELECT count(*) as is_admin FROM app_user Where username='${info.username}' AND password='${info.password}' AND role='admin';`;
+    const query =  `SELECT count(*) as is_admin FROM app_user Where username='${info.username}' AND password='${info.password}' AND role='admin_user';`;
     const res = await client.query(query);
     const rows = res.rows;
     var isAdmin = false;
@@ -183,5 +207,6 @@ module.exports = {
   addEndUser:addEndUser,
   addGame:addGame,
   updateGame:updateGame,
-  vote:vote
+  vote:vote,
+  getVotesByGame:getVotesByGame
 }

@@ -18,6 +18,10 @@ app.get('/game', function (req, res) {
     Db.getGames().then(function(result){res.json(result)});
 })
 
+app.post('/game/vote', function (req, res) {
+    Db.getVotesByGame(req.body).then(function(result){res.json(result)});
+})
+
 app.get('/player/teamname/:teamname', function (req, res) {
     Db.getPlayersByTeam(req.params.teamname).then(function(result){res.json(result)});
 })
@@ -25,7 +29,7 @@ app.get('/player/teamname/:teamname', function (req, res) {
 app.post('/login', function(req, res) {
     Db.isEndUser(req.body).then(function(result){
         if(result==true){
-            console.log("is enduser");
+            // console.log("is enduser");
             res.status(200);
             res.end();
         }
@@ -52,7 +56,7 @@ app.post('/user', function(req, res) {
 app.post('/admin', function(req, res) {
     Db.isAdmin(req.body).then(function(result){
         if(result==true){
-            console.log("is admin");
+            // console.log("is admin");
             res.status(200);
             res.end();
         }

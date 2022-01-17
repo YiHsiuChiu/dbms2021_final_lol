@@ -44,13 +44,13 @@ struct PlayerView: View {
                     Text(player.role).font(.callout).font(.system(size: 60)).bold()
                 }.padding()
                 Divider()
-//                HStack {
-//                    Text("Mvp次數: ").font(.system(size: 20)).bold()
-//                    Spacer()
-//                    Spacer()
-//                    Text(player.mvpNum).font(.callout).font(.system(size: 60)).bold()
-//                }.padding()
-//                Divider()
+                HStack {
+                    Text("Mvp次數: ").font(.system(size: 20)).bold()
+                    Spacer()
+                    Spacer()
+                    Text(player.mvpNum).font(.callout).font(.system(size: 60)).bold()
+                }.padding()
+                Divider()
             }
             Spacer()
             Spacer()

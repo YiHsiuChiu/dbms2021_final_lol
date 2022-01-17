@@ -22,7 +22,15 @@ struct GameListView: View {
                         GameRowView(game: game)
                         }
                     }.navigationBarTitle(Text("Game List"))
-            }.searchable(text: $searchText)
+            }.searchable(text: $searchText).refreshable {
+                gameData = getGameList()
+                List(gameData.filter({ searchText.isEmpty ? true : $0.teamRedName.contains(searchText) })) { game in
+                    NavigationLink (
+                        destination: GameView(game: game)) {
+                        GameRowView(game: game)
+                        }
+                    }.navigationBarTitle(Text("Game List"))
+            }
         }
     }
 }

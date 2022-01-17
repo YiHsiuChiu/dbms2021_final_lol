@@ -68,7 +68,7 @@ private func getPlayerList(name: String) -> [PlayerProfile] {
                 do {
                     DataList = try JSONDecoder().decode([PlayerProfile].self, from: data)
                     print("success")
-                    print("this is ",DataList)
+//                    print("this is ",DataList)
                     mutex = true
                 } catch {
                     fatalError("Error: \(error.localizedDescription)")

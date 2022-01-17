@@ -13,7 +13,7 @@ struct PlayerView: View {
     var body: some View {
         VStack {
             Spacer()
-            CircleImageView(image: base64toImage(imageBase64String: player.image), size: 200).padding()
+            CircleImageView(image: base64toImage(imageBase64String: player.image ?? ""), size: 200).padding()
             Spacer()
             Divider()
             VStack(alignment: .leading) {

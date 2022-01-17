@@ -15,7 +15,7 @@ struct PlayerProfile: Identifiable, Hashable, Decodable{
     var name:String
     var role:String
     var mvpNum:String
-    var image:String
+    var image:String?
 }
 
 extension PlayerProfile {

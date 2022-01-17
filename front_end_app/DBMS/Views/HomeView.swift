@@ -117,7 +117,7 @@ func getTeam(teamName: String) -> TeamProfile{
     return TeamProfile(teamName: "error",regionName: "error", image: "")
 //     var mutex = false
 //     var team : TeamProfile = TeamProfile(teamName: "GoGoGo",regionName: "LCK", image: "TestImage")
-//     let address = "http://140.119.163.196:8081/team/" + teamName
+//     let address = "\(server_url)/team/" + teamName
 //     print(address)
 //     if let url = URL(string: address) {
 //         // GET

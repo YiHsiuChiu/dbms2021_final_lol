@@ -126,7 +126,7 @@ struct GameView_Previews: PreviewProvider {
 }
 
 func updateDate(startTime: String) -> [GameProfile]{
-    let address = "http://140.119.163.196:8081/game/vote"
+    let address = "\(server_url)/game/vote"
     //POST
     var mutex = false
     var DataList : [GameProfile]=[];
@@ -162,7 +162,7 @@ func updateDate(startTime: String) -> [GameProfile]{
 }
 
 func userVote(time: String, account: String, winner: String) {
-    let address = "http://140.119.163.196:8081/vote"
+    let address = "\(server_url)/vote"
     //POST
     var request = URLRequest(url: URL(string: address)!)
     let postTime = timeFormat(time: time)

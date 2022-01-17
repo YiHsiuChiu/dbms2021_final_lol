@@ -43,7 +43,7 @@ struct RegisterView: View {
                         }.padding([.leading, .bottom, .trailing])
 
                     Button(action: {
-                        let address = "http://140.119.163.196:8081/user"
+                        let address = "\(server_url)/user"
                         //POST
                         var request = URLRequest(url: URL(string: address)!)
                         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

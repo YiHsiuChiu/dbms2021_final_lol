@@ -90,7 +90,7 @@ struct ContentView: View {
     
     // Username/Password check func
     func authenticateUser(account: String, password: String) {
-        let address = "http://140.119.163.196:8081/login"
+        let address = "\(server_url)/login"
         //POST
         var request = URLRequest(url: URL(string: address)!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

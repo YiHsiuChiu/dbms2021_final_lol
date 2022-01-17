@@ -14,6 +14,8 @@ import SwiftUI
 
 var mutexServer = false;
 
+let server_url = "http://140.119.163.196:8081";
+
 var gameData: [GameProfile] = []
 //var gameData: [GameProfile] = getGameList()
 //var playerData: [PlayerProfile] = getPlayerList()
@@ -26,7 +28,7 @@ var teamData: [TeamProfile] = []
 func getPlayerList() -> [PlayerProfile] {
     var mutex = false
     var DataList : [PlayerProfile]=[];
-    let address = "http://140.119.163.196:8081/player"
+    let address = "\(server_url)/player"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -56,7 +58,7 @@ func getPlayerList() -> [PlayerProfile] {
 func getTeamList() -> [TeamProfile] {
     var mutex = false
     var DataList : [TeamProfile]=[];
-    let address = "http://140.119.163.196:8081/team"
+    let address = "\(server_url)/team"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -86,7 +88,7 @@ func getTeamList() -> [TeamProfile] {
 func getGameList() -> [GameProfile] {
     var mutex = false
     var DataList : [GameProfile]=[];
-    let address = "http://140.119.163.196:8081/game"
+    let address = "\(server_url)/game"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in

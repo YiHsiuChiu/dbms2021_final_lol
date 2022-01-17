@@ -56,7 +56,7 @@ struct TeamView_Previews: PreviewProvider {
 private func getPlayerList(name: String) -> [PlayerProfile] {
     var mutex = false
     var DataList : [PlayerProfile]=[];
-    let address = "http://140.119.163.196:8081/player/teamname/\(name)"
+    let address = "\(server_url)/player/teamname/\(name)"
     if let url = URL(string: address) {
         // GET
         URLSession.shared.dataTask(with: url) { (data, response, error) in

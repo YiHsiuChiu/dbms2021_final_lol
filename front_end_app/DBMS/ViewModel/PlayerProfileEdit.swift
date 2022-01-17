@@ -99,7 +99,7 @@ func getGameList() -> [GameProfile] {
                     DataList = try JSONDecoder().decode([GameProfile].self, from: data)
                     print("success")
 //                    print("gamegamegame")
-                     print("this is ",DataList)
+                    // print("this is ",DataList)
                     mutex = true
                 } catch {
                     fatalError("Error: \(error.localizedDescription)")

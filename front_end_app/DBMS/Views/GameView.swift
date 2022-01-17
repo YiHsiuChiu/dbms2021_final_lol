@@ -108,9 +108,9 @@ struct GameView: View {
                 mvp = temp[0].mvp
                 
                 progressValue = Float(red) / (Float(red) + Float(blue))
-                print(endTime)
-                print(winner)
-                print(mvp)
+                print(endTime ?? nil)
+                print(winner ?? nil)
+                print(mvp ?? nil)
 //                print(progressValue)
             }
         } else {

@@ -9,27 +9,22 @@ import SwiftUI
 
 struct GameListView: View {
     @State private var searchText = ""
+    @State private var list:[GameProfile] = []
     init() {
-        gameData = getGameList()
+//        list = getGameList()
     }
     var body: some View {
         if #available(iOS 15.0, *) {
             NavigationView {
             
-                List(gameData.filter({ searchText.isEmpty ? true : $0.teamRedName.contains(searchText) })) { game in
+                List(list.filter({ searchText.isEmpty ? true : $0.teamRedName.contains(searchText) })) { game in
                     NavigationLink (
                         destination: GameView(game: game)) {
                         GameRowView(game: game)
                         }
                     }.navigationBarTitle(Text("Game List"))
-            }.searchable(text: $searchText).refreshable {
-                gameData = getGameList()
-                List(gameData.filter({ searchText.isEmpty ? true : $0.teamRedName.contains(searchText) })) { game in
-                    NavigationLink (
-                        destination: GameView(game: game)) {
-                        GameRowView(game: game)
-                        }
-                    }.navigationBarTitle(Text("Game List"))
+            }.searchable(text: $searchText).onAppear {
+                list = getGameList()
             }
         }
     }

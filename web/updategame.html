@@ -1,0 +1,68 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>second</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  
+</head>
+
+<body>
+  <div class="system_name">
+  </div>
+
+  <div class="login_page">
+    <div id="container1">
+
+      <div class="login">
+
+        <h3>update</h3>
+        <input type="text" id="start_time" name="start_time" placeholder="start_time" required>
+        <div class="tab"></div>
+        <input type="text" id="end_time" name="end_time" placeholder="end_time" required>
+        <div class='tab'></div>
+        <input type="text" id="winner" name="winner" placeholder="winner" required>
+        <div class='tab'></div>
+        <input type="text" id="mvp" name="mvp" placeholder="mvp" required>
+        <div class='tab'></div>
+        <input type="button" onclick="updategame()" value="New Game"></input>
+
+
+      </div><!-- login end-->
+    </div><!-- container1 end-->
+  </div><!-- login_page end-->
+  <script src="./scripts/main.js"></script>
+</body>
+
+</html>
+
+<script type="text/javascript">
+  updategame = function () {
+    console.log("QQ");
+    $.ajax({
+          url: 'http://140.119.163.196:8081/game',
+          method: 'PUT',
+          data: {
+              "startTime":document.getElementById("start_time").value, 
+              "endTime": document.getElementById("end_time").value, 
+              "winner":document.getElementById("winner").value, 
+              "mvp":document.getElementById("mvp").value
+          },
+          success: function(data) {
+              console.log(data);
+              alert("update 成功");
+              document.getElementById("start_time").value="",
+              document.getElementById("end_time").value="",
+              document.getElementById("winner").value="",
+              document.getElementById("mvp").value=""
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+            alert("失敗，請檢察primary key(start time)是否存在");
+        }
+          
+      });
+  }
+</script>

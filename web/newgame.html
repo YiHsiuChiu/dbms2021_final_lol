@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script
+          src="https://code.jquery.com/jquery-3.6.0.js"
+          integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+          crossorigin="anonymous"></script>
+        <title>second</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript">
+          newgame=function(){
+    $.ajax({
+        method: "POST",
+        url:encodeURI( 'http://140.119.163.196:8081/game'),
+        
+        data:{
+      'startTime':document.getElementById("start_time").value,
+      'fractionOfFinal':document.getElementById('fraction_of_final').value,
+      'no':document.getElementById("no").value,
+      'teamRedName':document.getElementById("team_red").value,
+      'teamBlueName':document.getElementById("team_blue").value
+    },
+        success: function (response) {
+            console.log(response);
+            alert("新增成功");
+            document.getElementById("start_time").value="",
+            document.getElementById("fraction_of_final").value="",
+            document.getElementById("no").value="",
+            document.getElementById("team_red").value="",
+            document.getElementById("team_blue").value=""
+        },
+        error: function (thrownError) {
+            console.log(thrownError);
+            alert("失敗，請檢察輸入資訊是否正確");
+        }
+    }
+    );
+    }
+        </script>
+    </head>
+  <body>
+    <div class="system_name">
+    </div>
+    
+    <div class="login_page">
+      <div id="container1">
+
+        <div class="login">  
+          
+          <h3>new</h3>
+          <input type="text" id="start_time"  placeholder="start_time" required>
+          <div class="tab"></div>
+          <input type="text" id="fraction_of_final"  placeholder="fraction_of_final" required>
+          <div class='tab'></div>
+          <input type="text" id="no"  placeholder="no" required>
+          <div class='tab'></div>
+          <input type="text" id="team_blue"  placeholder="team_blue" required>
+          <div class='tab'></div>
+          <input type="text" id="team_red"  placeholder="team_red" required>
+          <div class='tab'></div>
+          <input type ="button" onclick="newgame()" value="New Game"></input>  
+
+          
+        </div><!-- login end-->
+      </div><!-- container1 end-->
+    </div><!-- login_page end-->   
+    
+  </body>
+</html>
